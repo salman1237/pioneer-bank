@@ -22,7 +22,7 @@
             <button class="btn btn-success" id="login">Enter</button>
         </div>
     </div>
-    <div id="transaction-area">
+    <div id="transaction-area" class="container">
         <div class="row">
             <div class="col-md-4">
                 <div class="deposit">
@@ -75,18 +75,21 @@
 
         const depositBtn = document.getElementById("addDeposit");
         depositBtn.addEventListener("click", function () {
-            const depositNumber = getInputNumber(depositAmount);
+            const depositNumber = getInputNumber("depositAmount");
 
             updateSpanText("currentDeposit", depositNumber);
             updateSpanText("currentBalance", depositNumber);
 
             document.getElementById("depositAmount").value = "";
-        })
+        });
         //withdraw button handler
         const withdrawBtn = document.getElementById("addWithdraw");
         withdrawBtn.addEventListener("click", function () {
             const withdrawNumber = getInputNumber("withdrawAmount");
             updateSpanText("currentWithdraw", withdrawNumber);
+            updateSpanText("currentBalance", -1 * withdrawNumber);
+
+            document.getElementById("withdrawAmount").value = "";
         })
         function getInputNumber(id) {
             const amount = document.getElementById(id).value;
@@ -94,13 +97,12 @@
             return amountNumber;
         }
 
-        function updateSpanText(id) {
+        function updateSpanText(id, depositNumber) {
             const current = document.getElementById(id).innerText;
             const currentNumber = parseFloat(current);
             const total = depositNumber + currentNumber;
             document.getElementById(id).innerText = total;
         }
-
 
 
 
